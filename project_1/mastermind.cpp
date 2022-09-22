@@ -1,8 +1,10 @@
-// Homework 1 part a                                                Trevor Smith
-//                                                     smith.tr@northeastern.edu
+// Project 1 Part A
+// Trevor Smith
+// Andrew Nguy
+// Viraj Lawande
 //
 // Main program file for homework 1 part a. Contains implementation of all
-// `code` member functions, and a basic mockup of the game loop for testing.
+// `code` class member functions, and a basic mockup of the game loop for testing.
 //
 
 #include "code.h"
@@ -16,8 +18,8 @@ using namespace std;
 
 
 code::code(int n, int m)
-// `code` class constructor. Takes in n -> length, length of code, and 
-// m -> digitRange, range of digits [0, digitRange - 1].
+// `code` class constructor. Takes in n, the length of the code, and 
+//  m, the range of digits [0, digitRange - 1].
 {
     length = n;
     digitRange = m;
@@ -28,10 +30,9 @@ void code::initializeRandomCode()
 // Fills the code vector with a random values on interval
 // [0, code.digitRange - 1].
 {
-    int i;
-
-    for (i = 0; i < length; ++i) {
-        // Extend empty vector one random number at a time.
+    for (int i = 0; i < length; ++i)
+    {
+        // Extend empty vector by one random number at a time.
         thecode.push_back(rand() % digitRange);
     }
 }
@@ -54,11 +55,10 @@ pair<code, code> code::removeCorrect(code guess)
     vector<int> clean_guess;
     vector<int> clean_secret;
     vector<int> code_guess = guess.get_code();
-    int i;
 
     // iterate on index through both vectors, collecting objects that are not
     // in the same place and digit into the two "cleaned" vectors.
-    for (i = 0; i < guess.get_length(); ++i)
+    for (int i = 0; i < guess.get_length(); ++i)
     {
         // if different numbers in the same place,
         if (thecode[i] != code_guess[i])
@@ -75,7 +75,7 @@ pair<code, code> code::removeCorrect(code guess)
     code clean_code_secret = code(guess.get_length(), guess.get_digitRange());
     clean_code_secret.setCode(clean_secret);
     return pair<code, code> (clean_code_secret, clean_code_guess);
-}
+} //end removeCorrect
 
 
 int code::checkCorrect(code guess)
@@ -119,10 +119,9 @@ int code::checkIncorrect(code guess)
     int guess_digits;
     int secret_digits;
     int incorrectDigits = 0;
-    int i;
 
     // Count the occurances of each possible digit in both "cleaned" codes.
-    for (i = 0; i < digitRange; ++i)
+    for (int i = 0; i < digitRange; ++i)
     {
         guess_digits = cleaned_codes.second.countDigit(i);
         secret_digits = cleaned_codes.first.countDigit(i);
@@ -137,7 +136,7 @@ int code::checkIncorrect(code guess)
         incorrectDigits += min(guess_digits, secret_digits);
     }
     return incorrectDigits;
-}
+} //end checkIncorrect
 
 
 void code::printCode()
@@ -186,7 +185,7 @@ code inputGuess(int n, int m)
     cout << "\n";
     codeGuess.setCode(code_guess);
     return codeGuess;
-}
+} //end inputGuess
 
 
 void my_test()
@@ -208,7 +207,7 @@ void my_test()
     cout << secretCode.checkCorrect(my_guess) << "\n";
     cout << "Number of digits incorrect: ";
     cout << secretCode.checkIncorrect(my_guess) << "\n";
-}
+} //end my_test
 
 
 void checkCorrect(code secret, code guess)

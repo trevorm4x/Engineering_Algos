@@ -1,8 +1,13 @@
-// Header file code.h for the `code` object, for use in the
+// Project 1 Part A
+// Trevor Smith
+// Andrew Nguy
+// Viraj Lawande
+// 
+//  Header file code.h for the `code` object, for use in the
 // game "mastermind"
 
 #include <iostream>
-#include<vector>
+#include <vector>
 
 using namespace std;
 
