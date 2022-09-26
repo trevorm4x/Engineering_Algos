@@ -16,7 +16,7 @@ class mastermind{
         bool isSolved(response response);
 
     private:
-        code thecode;
+        code secretCode;
         int guessCounter;
 
 };

@@ -1,8 +1,27 @@
 #include "mastermind.h"
 
+void mastermind::printSecretCode(){
 
-bool mastermind::isSolved(response response) {
-    if (thecode.get_length() == response.getNumberCorrect()) {
+};
+
+
+code mastermind::humanGuess(){
+
+};
+
+
+response mastermind::getResponse(code guess){
+    response answer = response();
+    answer.set(
+        secretCode.checkCorrect(guess),
+        secretCode.checkIncorrect(guess)
+    );
+    return answer;
+};
+
+
+bool mastermind::isSolved(response answer) {
+    if (thecode.get_length() == answer.getNumberCorrect()) {
         return true;
     }
     return false;
