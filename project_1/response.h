@@ -1,18 +1,18 @@
-#include <iostream>
 #include "code.h"
+#include <iostream>
 using namespace std;
 
-class response{
+class response {
 
-    public:
-        response(code guess);
-        void set(code guess);
-        int getNumberCorrect();
-        int getNumberIncorrect();
-        friend bool operator ==(const response& lhs, const response& rhs);
-        friend void operator <<(ostream& ostr, response rhs);
+public:
+  response(code secretCode, code guess);
+  void set(code secretCode, code guess);
+  int getNumberCorrect();
+  int getNumberIncorrect();
+  friend bool operator==(const response &lhs, const response &rhs);
+  friend void operator<<(ostream &ostr, response rhs);
 
-    private:
-        static int numberCorrect;
-        static int numberIncorrect;
+private:
+  int numberCorrect;
+  int numberIncorrect;
 };
