@@ -5,8 +5,9 @@
 int main() {
     int n;
     int m;
-    cout << "Type n and m\n";
-    cin >> n >> m;
+    std::cout << "Type n and m\n";
+    std::cin >> n >> m;
     mastermind game = mastermind(n, m);
-    game.playGame();
-}
+    // game.playGame();
+    return 1;
+};

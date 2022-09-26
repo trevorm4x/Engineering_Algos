@@ -16,6 +16,7 @@ class mastermind{
         bool isSolved(response response);
 
     private:
+        // trevor: changed this name from 'thecode' to 'secretCode'
         code secretCode;
         int guessCounter;
 
