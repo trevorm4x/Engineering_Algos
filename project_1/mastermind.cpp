@@ -8,6 +8,7 @@ mastermind::mastermind(int n, int m) : secretCode(n, m) {
 
 
 mastermind::mastermind() : secretCode(5, 10) {
+    secretCode.initializeRandomCode();
 };
 
 
@@ -32,29 +33,31 @@ code mastermind::humanGuess(){
 };
 
 
-response mastermind::getResponse(code guess){
-    response answer = response();
-    answer.set(
-        secretCode.checkCorrect(guess),
-        secretCode.checkIncorrect(guess)
-    );
-    return answer;
-};
+// commented for testing, uncomment when response class is finished
 
-
-bool mastermind::isSolved(response answer) {
-    if (secretCode.get_length() == answer.getNumberCorrect()) {
-        return true;
-    }
-    return false;
-}
+// response mastermind::getResponse(code guess){
+    // response answer = response();
+    // answer.set(
+        // secretCode.checkCorrect(guess),
+        // secretCode.checkIncorrect(guess)
+    // );
+    // return answer;
+// };
+// 
+// 
+// bool mastermind::isSolved(response answer) {
+    // if (secretCode.get_length() == answer.getNumberCorrect()) {
+        // return true;
+    // }
+    // return false;
+// }
 
 
 int main(){
     mastermind game = mastermind();
     game.printSecretCode();
     code guess = game.humanGuess();
-    response answer = game.getResponse(guess);
-    cout << game.isSolved(answer);
+    // response answer = game.getResponse(guess);
+    // cout << game.isSolved(answer);
     return 1;
 }
