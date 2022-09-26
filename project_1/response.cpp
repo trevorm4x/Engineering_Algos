@@ -1,26 +1,21 @@
 #include "response.h"
 
 // Viraj
-
 response::response(code guess) {
-    set(getNumberCorrect(guess), getNumberIncorrect(guess));
+    set(guess);
 }
 
-int response::getNumberCorrect(code guess) {
-    int correct;
-    correct = guess.checkCorrect(guess);
-    return correct;
+int response::getNumberCorrect() {
+    return numberCorrect;
 }
 
-int response::getNumberIncorrect(code guess) {
-    int incorrect;
-    incorrect = guess.checkIncorrect(guess);
-    return incorrect;
+int response::getNumberIncorrect() {
+    return numberIncorrect;
 }
 
-void response::set(int correct, int incorrect) {
-    numberCorrect = correct;
-    numberIncorrect = incorrect;
+void response::set(code guess) {
+    numberCorrect = guess.checkCorrect(guess);
+    numberIncorrect = guess.checkIncorrect(guess);
 }
 
 bool operator ==(const response& lhs, const response& rhs) {
