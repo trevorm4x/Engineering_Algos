@@ -18,8 +18,9 @@ void response::set(code secretCode, code guess) {
     numberIncorrect = secretCode.checkIncorrect(guess);
 }
 
-bool operator==(const response& lhs, const response& rhs) {
-    if(lhs == rhs) {
+bool operator==(response& lhs, response& rhs) {
+    if((lhs.getNumberCorrect() == rhs.getNumberCorrect()) &
+    (lhs.getNumberIncorrect() == rhs.getNumberIncorrect())) {
         return true;
     }
     return false;
