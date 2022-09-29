@@ -11,7 +11,7 @@ void checkCorrect(code secret, code guess)
     cout << secret.checkIncorrect(guess) << "\n";
 }
 
-
+/*
 int main()
 // Play a sample game with predefined guesses. `secretCode` will be randomized,
 // but is deterministic and will be the same each time the program is run.
@@ -34,3 +34,4 @@ int main()
     checkCorrect(secretCode, guess_3);
     return 0;
 }
+*/

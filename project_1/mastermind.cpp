@@ -3,10 +3,14 @@
 
 using namespace std;
 
-mastermind::mastermind(int n, int m) : secretCode(n, m){};
+mastermind::mastermind(int n, int m) : secretCode(n, m){
+    secretCode.initializeRandomCode();
+    guessCounter = 0;
+};
 
 mastermind::mastermind() : secretCode(5, 10) {
     secretCode.initializeRandomCode();
+    guessCounter = 0;
 };
 
 void mastermind::printSecretCode() {
@@ -38,6 +42,29 @@ bool mastermind::isSolved(response answer) {
         return true;
     }
     return false;
+}
+
+void mastermind::playGame() {
+    //print key for debug purposes
+    printSecretCode();
+
+    //continuously takes user input and checks until game ends
+    bool flag = true;
+    while(flag == true && guessCounter < 10) {
+        code guess = humanGuess();
+        response answer = getResponse(guess);
+        cout << answer;
+        cout << endl;
+        flag = !isSolved(answer);
+        guessCounter++;
+    }
+    
+    //win if game ended before 10 turns
+    if(guessCounter < 10) {
+        cout << "You won in " << guessCounter << " guesses!\n";
+    } else {
+        cout << "You lose! Reached a max of 10 guesses.\n";
+    }
 }
 
 /*
