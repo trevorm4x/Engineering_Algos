@@ -3,7 +3,7 @@
 // Andrew Nguy
 // Viraj Lawande
 //
-// Main program file for homework 1 part a. Contains implementation of all
+// Main program file for homework 1 part A. Contains implementation of all
 // `code` class member functions, and a basic mockup of the game loop for
 // testing.
 //
@@ -29,7 +29,7 @@ void code::initializeRandomCode()
 // Fills the code vector with a random values on interval
 // [0, code.digitRange - 1].
 {
-    for(int i = 0; i < length; ++i) {
+    for (int i = 0; i < length; ++i) {
         // Extend empty vector by one random number at a time.
         thecode.push_back(rand() % digitRange);
     }
@@ -54,9 +54,9 @@ pair<code, code> code::removeCorrect(code guess)
 
     // iterate on index through both vectors, collecting objects that are not
     // in the same place and digit into the two "cleaned" vectors.
-    for(int i = 0; i < guess.get_length(); ++i) {
+    for (int i = 0; i < guess.get_length(); ++i) {
         // if different numbers in the same place,
-        if(thecode[i] != code_guess[i]) {
+        if (thecode[i] != code_guess[i]) {
             // push them to their respective "cleaned" vectors.
             clean_secret.push_back(thecode[i]);
             clean_guess.push_back(code_guess[i]);
@@ -89,9 +89,9 @@ int code::countDigit(int digit)
     int found_digits = 0;
 
     // iterate through vector values
-    for(int v : thecode) {
+    for (int v : thecode) {
         // if we found an occurance of the digit,
-        if(v == digit) {
+        if (v == digit) {
             // we count it.
             ++found_digits;
         }
@@ -110,7 +110,7 @@ int code::checkIncorrect(code guess)
     int incorrectDigits = 0;
 
     // Count the occurances of each possible digit in both "cleaned" codes.
-    for(int i = 0; i < digitRange; ++i) {
+    for (int i = 0; i < digitRange; ++i) {
         guess_digits  = cleaned_codes.second.countDigit(i);
         secret_digits = cleaned_codes.first.countDigit(i);
 
@@ -130,7 +130,7 @@ void code::printCode()
 // Simple helper function to print the vector stored in a `code` object.
 {
     cout << "{";
-    for(int i : thecode) {
+    for (int i : thecode) {
         cout << i << ",";
     }
     cout << "}\n";
@@ -146,18 +146,18 @@ code inputGuess(unsigned int n, unsigned int m)
     cin >> char_guess;
     code codeGuess = code(n, m);
 
-    if(char_guess.length() < n) {
+    if (char_guess.length() < n) {
         // Incorrect input is undefined behavior so I had fun with it.
         cout << "Guess too short, you lost your shot!\n";
         codeGuess.initializeRandomCode();
         return codeGuess;
     }
 
-    if(char_guess.length() > n) {
+    if (char_guess.length() > n) {
         cout << "Guess too long, extra digits removed\n";
     }
 
-    for(unsigned int i = 0; i < n; ++i) {
+    for (unsigned int i = 0; i < n; ++i) {
         // Cast to int by subtracting 48
         code_guess.push_back((int)char_guess[i] - 48);
     }

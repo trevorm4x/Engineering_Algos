@@ -3,18 +3,18 @@
 // Andrew Nguy
 // Viraj Lawande
 //
-//  Header file code.h for the `code` object, for use in the
-// game "mastermind"
+// code class header file that contains function prototypes for the class
 
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-class code {
+class code 
+{
     public:
-    // constructor and destructor:
 
+    //constructor
     code(int n, int m);
 
     // basic operations modeling "mastermind" game rules
@@ -25,13 +25,18 @@ class code {
     void printCode();
 
     // accessors
-    int get_length() {
+    int get_length() 
+    {
         return length;
     }
-    int get_digitRange() {
+
+    int get_digitRange() 
+    {
         return digitRange;
     }
-    vector<int> get_code() {
+
+    vector<int> get_code() 
+    {
         return thecode;
     }
 

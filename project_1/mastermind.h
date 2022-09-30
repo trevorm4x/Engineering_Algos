@@ -1,21 +1,25 @@
+// Project 1 Part B
+// Trevor Smith
+// Andrew Nguy
+// Viraj Lawande
+//
+// mastermind class header file that contains function prototypes for the class
+
 #include "response.h"
 #include <cstddef>
 
 class mastermind {
 
     public:
-    mastermind();
-    mastermind(int n, int m);
-    void playGame();
-
-    // Put in private when class is done with testing
-    void printSecretCode();
-    code humanGuess();
-    response getResponse(code guess);
-    bool isSolved(response response);
+        mastermind();
+        mastermind(int n, int m);
+        void playGame();
 
     private:
-    // trevor: changed this name from 'thecode' to 'secretCode'
-    code secretCode;
-    int guessCounter;
+        void printSecretCode();
+        code humanGuess();
+        response getResponse(code guess);
+        bool isSolved(response response);
+        code secretCode;
+        int guessCounter;
 };
