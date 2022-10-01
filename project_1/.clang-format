@@ -320,7 +320,7 @@ PenaltyBreakBeforeFirstCallParameter: 100
 
 # PenaltyBreakComment (unsigned)
 # The penalty for each line break introduced inside a comment.
-PenaltyBreakComment: 100
+# PenaltyBreakComment: 100
 
 # PenaltyBreakFirstLessLess (unsigned)
 # The penalty for breaking before the first <<.
@@ -348,7 +348,7 @@ PenaltyReturnTypeOnItsOwnLine: 20
 
 # ReflowComments (bool)
 # If true, clang-format will attempt to re-flow comments.
-#ReflowComments: true (from v3.9)
+ReflowComments: true # (from v3.9)
 
 # SortIncludes (bool)
 # If true, clang-format will sort #includes.

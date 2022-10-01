@@ -3,7 +3,7 @@
 // Andrew Nguy
 // Viraj Lawande
 //
-//response class header file that contains function prototypes for the class
+// response class header file that contains function prototypes for the class
 
 #include "code.h"
 #include <iostream>
