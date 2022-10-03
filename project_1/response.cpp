@@ -35,8 +35,8 @@ void response::set(code secretCode, code guess)
 }
 
 bool operator==(response& lhs, response& rhs)
-// function to overload the == operator as a comparison operator for the response
-// class
+// function to overload the == operator as a comparison operator for the
+// response class
 {
     if(lhs.getNumberCorrect() == rhs.getNumberCorrect()) {
         return true;

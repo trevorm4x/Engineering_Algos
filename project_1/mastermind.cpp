@@ -24,7 +24,7 @@ mastermind::mastermind(int n, int m)
 
 mastermind::mastermind()
 : secretCode(5, 10)
-// mastermind class constructor that takes in no inputs and initializes the 
+// mastermind class constructor that takes in no inputs and initializes the
 // secret code with a 5 digit length and a digit range of 10
 {
     secretCode.initializeRandomCode();
@@ -41,8 +41,7 @@ void mastermind::printSecretCode()
 code mastermind::humanGuess()
 // function to take in a user's guess and store it as a code object
 {
-    cout << "Please enter your guess of " << secretCode.get_length()
-	    << " digits" << endl;
+    cout << "Please enter your guess of " << secretCode.get_length() << " digits" << endl;
     vector<int> guess_vector;
     int s;
 
