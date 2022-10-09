@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "card.h"
 
 //header file for deck class
 using namespace std;
