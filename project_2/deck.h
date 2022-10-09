@@ -6,7 +6,8 @@ using namespace std;
 
 class deck
 {
-    deck();
-    friend void operator<<(ostream& ostr, deck rhs);
-    void shuffle();
+    public:
+        deck();
+        friend void operator<<(ostream& ostr, deck rhs);
+        void shuffle();
 };
