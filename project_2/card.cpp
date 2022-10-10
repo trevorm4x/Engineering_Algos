@@ -14,7 +14,7 @@ void card::setValue(int value)
 {
     switch (value) {
         case 1:
-            cardValue = "1";
+            cardValue = "Ace";
             break;
         case 2:
             cardValue = "2";
