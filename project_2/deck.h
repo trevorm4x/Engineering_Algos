@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "card.h"
+#include "d_node.h"
 
 //header file for deck class
 using namespace std;
@@ -13,6 +14,6 @@ class deck
         void shuffle();
     
     private:
-        *card iter;
-        *card front;
+        node<card> *iter;
+        node<card> *front;
 };

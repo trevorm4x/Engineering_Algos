@@ -30,13 +30,16 @@ void card::setValue(int value)
             break;
         case 6:
             cardValue = "6";
+            break;
         case 7:
             cardValue = "7";
+            break;
         case 8:
             cardValue = "8";
             break;
         case 9:
             cardValue = "9";
+            break;
         case 10:
             cardValue = "10";
             break;
