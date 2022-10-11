@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// runs the main function that creates a deck and prints it,
+// and then shuffles before reprinting to confirm changes
 int main() {
   deck my_deck = deck();
   cout << my_deck;
