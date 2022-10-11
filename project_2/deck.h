@@ -10,7 +10,7 @@ class deck
 {
     public:
         deck();
-        ~deck();
+        // ~deck();
         friend void operator<<(ostream& ostr, deck rhs);
         void shuffle();
         void insert(node<card>* new_front_card);
@@ -19,4 +19,5 @@ class deck
         node<card> *front;
         node<card> *iter;
         card *newCard;
+        void pushFrontRandomCard();
 };

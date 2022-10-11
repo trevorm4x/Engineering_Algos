@@ -40,8 +40,10 @@ void operator<<(ostream& ostr, deck rhs) {
         ostr << rhs.iter->nodeValue;
         rhs.iter = rhs.iter->next;
     }
+    rhs.iter = rhs.front;
 }
 
+/*
 deck::~deck() {
     iter = front;
     while(iter != NULL) {
@@ -52,21 +54,21 @@ deck::~deck() {
         delete front;
     }
 }
+*/
 
 void deck::insert(node<card> *new_front_card) {
     new_front_card->next = front;
     front = new_front_card;
 }
 
-void deck::shuffle() {
-    // srand (time(NULL));
-    srand (10);
+void deck::pushFrontRandomCard() {
     int random_number = rand() % 50;
-    random_number = 2;
+    cout << "rand called" << random_number << "\n";
     int i = 0;
     iter = front;
     while (i != random_number){
         iter = iter->next;
+        ++i;
     }
     if (iter->next->next == NULL) {
         node<card>* new_front_card = iter->next;
@@ -77,5 +79,11 @@ void deck::shuffle() {
         node<card>* new_front_card = iter->next;
         iter->next = iter->next->next;
         insert(new_front_card);
+    }
+}
+
+void deck::shuffle() {
+    for (int i = 0; i < 1000; i++) {
+        pushFrontRandomCard();
     }
 }
