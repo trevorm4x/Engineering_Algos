@@ -10,10 +10,13 @@ class deck
 {
     public:
         deck();
+        ~deck();
         friend void operator<<(ostream& ostr, deck rhs);
         void shuffle();
+        void insert(node<card>* new_front_card);
     
     private:
-        node<card> *iter;
         node<card> *front;
+        node<card> *iter;
+        card *newCard;
 };

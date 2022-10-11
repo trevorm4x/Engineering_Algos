@@ -17,4 +17,3 @@ public:
 private:
 	string cardSuit, cardValue;
 };
-

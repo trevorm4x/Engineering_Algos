@@ -1,6 +1,9 @@
 #include "deck.h"
 #include "d_node.h"
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
 
 using namespace std;
 
@@ -10,18 +13,21 @@ deck::deck()
 {
     int maxSuitNum = 4;
     int maxCardNum = 13;
-    node<card> *front = NULL;
-    node<card> *temp;
-    for (int i = 1; i <= maxSuitNum; i++) {
-        for (int j = maxCardNum; j > 0; j--) {
-            card *curCard = new card(i, j);
-            if ((i == 1) and (j == maxCardNum)) {
-                front = new node<card>(*curCard);
+    newCard = new card(maxSuitNum, maxCardNum);
+    front = new node<card>(*newCard, NULL);
+    iter = front;
+    bool flag = true;
+    for (int i = maxSuitNum; i >= 1; i--) {
+        for (int j = maxCardNum; j >= 1; j--) {
+            // skip first iteration since we had to treat the first front as a special case
+            if (flag) {
+                flag = false;
             }
             else {
-                temp = new node<card>(*curCard);
-                temp->next = front;
-                front = temp;
+                newCard = new card(i, j);
+                iter = new node<card>(*newCard);
+                iter->next = front;
+                front = iter;
             }
         }
     }
@@ -29,8 +35,47 @@ deck::deck()
 
 void operator<<(ostream& ostr, deck rhs) {
     rhs.iter = rhs.front;
+    ostr << "printing!\n";
     while(rhs.iter != NULL) {
-        ostr << rhs.iter->nodeValue.getValue() << endl;
+        ostr << rhs.iter->nodeValue;
         rhs.iter = rhs.iter->next;
+    }
+}
+
+deck::~deck() {
+    iter = front;
+    while(iter != NULL) {
+        cout << "deleting!\n";
+        cout << iter->nodeValue;
+        front = iter;
+        iter = iter->next;
+        delete front;
+    }
+}
+
+void deck::insert(node<card> *new_front_card) {
+    new_front_card->next = front;
+    front = new_front_card;
+}
+
+void deck::shuffle() {
+    // srand (time(NULL));
+    srand (10);
+    int random_number = rand() % 50;
+    random_number = 2;
+    int i = 0;
+    iter = front;
+    while (i != random_number){
+        iter = iter->next;
+    }
+    if (iter->next->next == NULL) {
+        node<card>* new_front_card = iter->next;
+        insert(new_front_card);
+        iter->next = NULL;
+    }
+    else {
+        node<card>* new_front_card = iter->next;
+        iter->next = iter->next->next;
+        insert(new_front_card);
     }
 }
