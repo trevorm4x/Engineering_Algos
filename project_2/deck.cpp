@@ -9,16 +9,26 @@ using namespace std;
 // Source file for deck class
 
 deck::deck() {
+  // declare num of suits and cards for iteration, 4 being spade, 13 being king
   int maxSuitNum = 4;
   int maxCardNum = 13;
+
+  // complete first iteration (king of spades) outside of loop since it is a special
+  // case where the next of this card is null since it is the last card
   newCard = new card(maxSuitNum, maxCardNum);
+
+  // points front to the king of spades since it is the first card
   front = new node<card>(*newCard, NULL);
+
+  // iter is used to keep track of the current node
   iter = front;
   bool flag = true;
+
+  // build deck card by card, backwards from king-spade (bottom deck)
+  // to ace-club (top deck) because of inserting at the front of list
   for (int i = maxSuitNum; i >= 1; i--) {
     for (int j = maxCardNum; j >= 1; j--) {
-      // skip first iteration since we had to treat the first front as a special
-      // case
+      // skip first iteration since treated the first front as a special case
       if (flag) {
         flag = false;
       } else {
@@ -31,6 +41,7 @@ deck::deck() {
   }
 }
 
+// overload << operation to print out each card
 void operator<<(ostream &ostr, deck rhs) {
   rhs.iter = rhs.front;
   ostr << "printing!\n";
@@ -41,6 +52,7 @@ void operator<<(ostream &ostr, deck rhs) {
   rhs.iter = rhs.front;
 }
 
+// destructor for deck class
 /*
 deck::~deck() {
     iter = front;
@@ -54,11 +66,14 @@ deck::~deck() {
 }
 */
 
+// inserts a node at the front of the linked list
 void deck::insert(node<card> *new_front_card) {
   new_front_card->next = front;
   front = new_front_card;
 }
 
+// iterates through the list to a random card, takes the next card
+// and places it on top of the deck
 void deck::pushFrontRandomCard() {
   int random_number = rand() % 50;
   cout << "rand called" << random_number << "\n";
@@ -68,6 +83,8 @@ void deck::pushFrontRandomCard() {
     iter = iter->next;
     ++i;
   }
+  // special case for if the 2nd to last card is selected, places the
+  // card at the bottom of the deck on top
   if (iter->next->next == NULL) {
     node<card> *new_front_card = iter->next;
     insert(new_front_card);
@@ -79,6 +96,9 @@ void deck::pushFrontRandomCard() {
   }
 }
 
+// shuffles the deck by repeatedly taking a random card from somewhere
+// in the middle of the deck and placing it on top of the deck
+// 1000 repetitions was chosen to ensure thorough shuffling
 void deck::shuffle() {
   for (int i = 0; i < 1000; i++) {
     pushFrontRandomCard();
