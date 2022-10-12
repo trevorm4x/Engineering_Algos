@@ -13,8 +13,8 @@ deck::deck() {
   int maxSuitNum = 4;
   int maxCardNum = 13;
 
-  // complete first iteration (king of spades) outside of loop since it is a special
-  // case where the next of this card is null since it is the last card
+  // complete first iteration (king of spades) outside of loop since it is a
+  // special case where the next of this card is null since it is the last card
   newCard = new card(maxSuitNum, maxCardNum);
 
   // points front to the king of spades since it is the first card
@@ -41,8 +41,8 @@ deck::deck() {
   }
 }
 
-// overload << operation to print out each card
 void operator<<(ostream &ostr, deck rhs) {
+  // overload << operation to print out each card
   rhs.iter = rhs.front;
   ostr << "printing!\n";
   while (rhs.iter != NULL) {
@@ -53,6 +53,7 @@ void operator<<(ostream &ostr, deck rhs) {
 }
 
 // destructor for deck class
+// not currently used but may be implemented later
 /*
 deck::~deck() {
     iter = front;
@@ -66,17 +67,16 @@ deck::~deck() {
 }
 */
 
-// inserts a node at the front of the linked list
 void deck::insert(node<card> *new_front_card) {
+  // inserts a node at the front of the linked list
   new_front_card->next = front;
   front = new_front_card;
 }
 
-// iterates through the list to a random card, takes the next card
-// and places it on top of the deck
 void deck::pushFrontRandomCard() {
+  // iterates through the list to a random card, takes the next card
+  // and places it on top of the deck
   int random_number = rand() % 50;
-  cout << "rand called" << random_number << "\n";
   int i = 0;
   iter = front;
   while (i != random_number) {
@@ -89,17 +89,20 @@ void deck::pushFrontRandomCard() {
     node<card> *new_front_card = iter->next;
     insert(new_front_card);
     iter->next = NULL;
-  } else {
+  }
+  // otherwise remove the next card and set current card's pointer
+  // to the next next card.
+  else {
     node<card> *new_front_card = iter->next;
     iter->next = iter->next->next;
     insert(new_front_card);
   }
 }
 
-// shuffles the deck by repeatedly taking a random card from somewhere
-// in the middle of the deck and placing it on top of the deck
-// 1000 repetitions was chosen to ensure thorough shuffling
 void deck::shuffle() {
+  // shuffles the deck by repeatedly taking a random card from somewhere
+  // in the middle of the deck and placing it on top of the deck
+  // 1000 repetitions was chosen to ensure thorough shuffling
   for (int i = 0; i < 1000; i++) {
     pushFrontRandomCard();
   }
