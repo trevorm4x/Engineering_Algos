@@ -7,6 +7,23 @@ card::card(int suit, int value)
 {
   setValue(value);
   setSuit(suit);
+  isFlipped = false;
+}
+
+card::card(const card& other)
+// Card class constructor that sets the card objects value and suit
+{
+  cardValue = other.cardValue;
+  cardSuit = other.cardSuit;
+  isFlipped = other.isFlipped;
+}
+
+void card::flip(){
+  isFlipped = true;
+}
+
+bool card::getFlipped(){
+  return isFlipped;
 }
 
 void card::setValue(int value)

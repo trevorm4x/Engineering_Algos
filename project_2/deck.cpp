@@ -41,7 +41,7 @@ deck::deck() {
   }
 }
 
-void operator<<(ostream &ostr, deck rhs) {
+void operator<<(ostream &ostr, deck& rhs) {
   // overload << operation to print out each card
   rhs.iter = rhs.front;
   ostr << "printing!\n";
@@ -52,9 +52,6 @@ void operator<<(ostream &ostr, deck rhs) {
   rhs.iter = rhs.front;
 }
 
-// destructor for deck class
-// not currently used but may be implemented later
-/*
 deck::~deck() {
     iter = front;
     while(iter != NULL) {
@@ -65,7 +62,6 @@ deck::~deck() {
         delete front;
     }
 }
-*/
 
 void deck::insert(node<card> *new_front_card) {
   // inserts a node at the front of the linked list
