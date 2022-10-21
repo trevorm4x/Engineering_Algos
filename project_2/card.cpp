@@ -30,6 +30,7 @@ void card::setValue(int value)
 // setValue function that takes in value and sets the cardValue variable to the
 // associated value
 {
+  integerValue = value;
   switch (value) {
   case 1:
     cardValue = "Ace";
@@ -98,6 +99,10 @@ string card::getSuit()
 // getSuit function to get the stored card suit of the card object
 {
   return cardSuit;
+}
+
+int card::getIntegerValue() {
+  return integerValue;
 }
 
 void operator<<(ostream &ostr, card rhs)

@@ -128,11 +128,12 @@ void deck::replace(node<card>* new_bottom_card) {
     new_bottom_card->next = NULL;
 }
 
-node<card>* goToCard(int pos) {
+node<card>* deck::goToCard(int pos) {
     iter = front;
     for(int i = 0; i < pos; i++) {
       iter = iter->next;
     }
+    return iter;
 }
 
 

@@ -16,9 +16,10 @@ public:
 	friend void operator<<(ostream &ostr, card rhs);
 	card operator= (const card &other);
 	void flip();
-  
+	int getIntegerValue();
 
 private:
 	string cardSuit, cardValue;
+	int integerValue;
 	bool isFlipped;
 };
