@@ -15,10 +15,11 @@ deck::deck() {
 
   // complete first iteration (king of spades) outside of loop since it is a
   // special case where the next of this card is null since it is the last card
-  newCard = new card(maxSuitNum, maxCardNum);
+  newCard = new card(maxSuitNum, maxCardNum); 
 
   // points front to the king of spades since it is the first card
   front = new node<card>(*newCard, NULL);
+  bottom = front;
 
   // iter is used to keep track of the current node
   iter = front;
@@ -39,7 +40,9 @@ deck::deck() {
       }
     }
   }
+  
 }
+
 
 void operator<<(ostream &ostr, deck& rhs) {
   // overload << operation to print out each card
@@ -103,3 +106,19 @@ void deck::shuffle() {
     pushFrontRandomCard();
   }
 }
+
+node<card> deck::deal() {
+    cout << front->nodeValue;
+    node<card> a = *front;
+    iter = front;
+    front = front->next;
+    delete iter;
+    return a;
+}
+
+void deck::replace(node<card>* new_bottom_card) {
+    new_bottom_card->next = bottom;
+    bottom = new_bottom_card;
+}
+
+

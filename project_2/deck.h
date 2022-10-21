@@ -9,15 +9,18 @@ using namespace std;
 class deck {
 public:
   deck();
+  deck(node<card> *a);
   ~deck();
-  deck deal();
+  node<card> deal();
   friend void operator<<(ostream &ostr, deck& rhs);
   void shuffle();
   void insert(node<card> *new_front_card);
-  void replace(node<card> *new_front_card);
+  void replace(node<card> *new_bottom_card);
 
+ 
 private:
-  node<card> *front;
+  node<card>* front;
+  node<card>* bottom;
   node<card> *iter;
   card *newCard;
   void pushFrontRandomCard();
