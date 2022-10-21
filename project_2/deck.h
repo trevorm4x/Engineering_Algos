@@ -15,12 +15,10 @@ public:
   friend void operator<<(ostream &ostr, deck& rhs);
   void shuffle();
   void insert(node<card> *new_front_card);
-  void replace(node<card> *new_bottom_card);
+  void replace(node<card> *new_front_card);
 
- 
 private:
-  node<card>* front;
-  node<card>* bottom;
+  node<card> *front;
   node<card> *iter;
   card *newCard;
   void pushFrontRandomCard();
