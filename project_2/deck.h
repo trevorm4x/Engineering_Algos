@@ -11,12 +11,12 @@ public:
   deck();
   deck(node<card> *a);
   ~deck();
-  node<card>* deal();
-  friend void operator<<(ostream &ostr, deck& rhs);
+  node<card> *deal();
+  friend void operator<<(ostream &ostr, deck &rhs);
   void shuffle();
   void insert(node<card> *new_front_card);
   void replace(node<card> *new_front_card);
-  node<card>* goToCard(int pos);
+  node<card> *goToCard(int pos);
 
 private:
   node<card> *front;

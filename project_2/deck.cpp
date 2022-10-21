@@ -50,11 +50,10 @@ deck::deck(node<card> *newTop) {
   newTop->next = NULL;
 }
 
-
-void operator<<(ostream &ostr, deck& rhs) {
+void operator<<(ostream &ostr, deck &rhs) {
   // overload << operation to print out each card
   rhs.iter = rhs.front;
-  ostr << "printing!\n";
+  ostr << "Here is your deck:\n";
   while (rhs.iter != NULL) {
     ostr << rhs.iter->nodeValue;
     rhs.iter = rhs.iter->next;
@@ -63,14 +62,12 @@ void operator<<(ostream &ostr, deck& rhs) {
 }
 
 deck::~deck() {
-    iter = front;
-    while(iter != NULL) {
-        cout << "deleting!\n";
-        cout << iter->nodeValue;
-        front = iter;
-        iter = iter->next;
-        delete front;
-    }
+  iter = front;
+  while (iter != NULL) {
+    front = iter;
+    iter = iter->next;
+    delete front;
+  }
 }
 
 void deck::insert(node<card> *new_front_card) {
@@ -114,26 +111,25 @@ void deck::shuffle() {
   }
 }
 
-node<card>* deck::deal() {
-    cout << front->nodeValue;
-    node<card> *a = front;
-    iter = front;
-    front = front->next;
-    return a;
+node<card> *deck::deal() {
+  cout << front->nodeValue;
+  node<card> *a = front;
+  front = front->next;
+  iter = front;
+  a->next = NULL;
+  return a;
 }
 
-void deck::replace(node<card>* new_bottom_card) {
-    bottom->next = new_bottom_card;
-    bottom = new_bottom_card;
-    new_bottom_card->next = NULL;
+void deck::replace(node<card> *new_bottom_card) {
+  bottom->next = new_bottom_card;
+  bottom = new_bottom_card;
+  new_bottom_card->next = NULL;
 }
 
-node<card>* deck::goToCard(int pos) {
-    iter = front;
-    for(int i = 0; i < pos; i++) {
-      iter = iter->next;
-    }
-    return iter;
+node<card> *deck::goToCard(int pos) {
+  iter = front;
+  for (int i = 1; i < pos; i++) {
+    iter = iter->next;
+  }
+  return iter;
 }
-
-

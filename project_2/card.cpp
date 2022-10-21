@@ -5,32 +5,29 @@
 card::card(int suit, int value)
 // Card class constructor that sets the card objects value and suit
 {
+  integerValue = value;
   setValue(value);
   setSuit(suit);
   isFlipped = false;
 }
 
-card::card(const card& other)
+card::card(const card &other)
 // Card class constructor that sets the card objects value and suit
 {
   cardValue = other.cardValue;
+  integerValue = other.integerValue;
   cardSuit = other.cardSuit;
   isFlipped = other.isFlipped;
 }
 
-void card::flip(){
-  isFlipped = true;
-}
+void card::flip() { isFlipped = true; }
 
-bool card::getFlipped(){
-  return isFlipped;
-}
+bool card::getFlipped() { return isFlipped; }
 
 void card::setValue(int value)
 // setValue function that takes in value and sets the cardValue variable to the
 // associated value
 {
-  integerValue = value;
   switch (value) {
   case 1:
     cardValue = "Ace";
@@ -101,9 +98,7 @@ string card::getSuit()
   return cardSuit;
 }
 
-int card::getIntegerValue() {
-  return integerValue;
-}
+int card::getIntegerValue() { return integerValue; }
 
 void operator<<(ostream &ostr, card rhs)
 // function to overload the << operator so it outputs the card object's
