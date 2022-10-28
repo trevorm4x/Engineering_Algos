@@ -4,9 +4,9 @@ dictionary::dictionary()
 //constructor for the dictionary class. Inputs the words from the dictionary file
 //into the words vector within the class, and sorts the vector using selection sort
 {
+	words = {};
 	readWords();
 	wordSorter();
-	words = {};
 }
 
 void dictionary::readWords() 
@@ -18,11 +18,15 @@ void dictionary::readWords()
 	//ensures that the file is opened properly before reading in words
 	{
 		string line;
+		int i = 0;
 		while (getline(myFile, line)) 
 		//continuously pushes each line from the txt file as a string to the words array
 		//until the last line of the txt document is reached
 		{
+			// there's like a CRLF or whatever at the end of each line we have to remove.
+			line.pop_back();
 			words.push_back(line);
+			++i;
 		}
 	}
 	else 
@@ -45,20 +49,15 @@ void dictionary::wordSorter()
 //function to sort the words vector using a selection sort algorithm
 {
 	int n = words.size() - 1;
-	cout << "line 31" << endl;
 	int min;
-	cout << "line 33" << endl;
 	for (int i = 0; i < n - 1; i++) 
 	{
-		cout << "line 36" << endl;
 		min = i;
 
 		for (int j = i + 1; j < n - 1; j++) 
 		{
-			cout << "line 40" << endl;
 			if (words[j] < words[min]) 
 			{
-				cout << "line 42" << endl;
 				min = j;
 			}
 		}
@@ -85,11 +84,11 @@ int dictionary::wordFinder(string key)
 			return mid;
 		}
 		else if (key < midValue) {
-			last = mid;
+			last = mid - 1;
 		}
 		else {
-			first = mid;
+			first = mid + 1;
 		}
-		
 	}
+	return -1;
 }//end wordFinder()
