@@ -1,5 +1,9 @@
 #include "grid.h"
 
+grid::grid() {
+	gridFiller();
+}
+
 void grid::gridFiller() {
 	string response;
 	cout << "Please enter the name of the file that you would like to use as your input with its filename (ex: dictionary.txt): " << endl;
@@ -29,6 +33,3 @@ void grid::gridFiller() {
 	}
 }
 
-grid::grid() {
-	gridFiller();
-}

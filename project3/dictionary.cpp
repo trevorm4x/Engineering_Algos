@@ -6,13 +6,14 @@ dictionary::dictionary()
 {
 	readWords();
 	wordSorter();
+	words = {};
 }
 
 void dictionary::readWords() 
 //function to read the words in from the dictionary text file
 {
 	fstream myFile;
-	myFile.open("dictonary.txt", ios::in);
+	myFile.open("Dictionary", ios::in);
 	if (myFile.is_open()) 
 	//ensures that the file is opened properly before reading in words
 	{
