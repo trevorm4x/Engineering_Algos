@@ -5,13 +5,16 @@
 #include <string>
 
 class dictionary {
-public:
-  dictionary();
-  void readWords();
-  friend void operator<<(ostream &ostr, dictionary &wordlist);
-  void wordSorter();
-  int wordFinder(string key);
+	public:
+		dictionary(int sortType);
+		void readWords();
+		friend void operator<<(ostream &ostr, dictionary &wordlist);
+		void selectionSort();
+		int binarySearch(string key);
+		void quickSort(int left, int right);
+		int partition(int p, int r);
+		void heapSort();
 
-private:
-  vector<string> words;
+	private:
+		vector<string> words;
 };
