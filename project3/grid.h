@@ -3,6 +3,8 @@
 #include <fstream>
 #include <iostream>
 
+//header file for the grid class
+
 class grid {
 	private:
 		void gridFiller(string response);

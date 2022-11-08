@@ -1,22 +1,26 @@
 #include "dictionary.h"
 #include "heap.h"
 
+//source file for the dictionary class
+
 dictionary::dictionary(int sortType)
-// constructor for the dictionary class. Inputs the words from the dictionary
-// file into the words vector within the class, and sorts the vector using
-// selection sort
+// constructor for the dictionary class. Takes in the user input to determine which sorting algorithm should be used
+// reads words from the dictionary file into the words vector, and then sorts those words using the selected sorting algorithm
 {
 	readWords();
-	if (sortType == 0) {
-		selectionSort();
+	if (sortType == 0) 
+	{
+	selectionSort();
 	}
 
-	if (sortType == 1) {
-		quickSort(0, words.size() - 1);
+	if (sortType == 1) 
+	{
+	quickSort(0, words.size() - 1);
 	}
 
-	if (sortType == 2){
-		heapSort();
+	if (sortType == 2)
+	{
+	heapSort();
 	}
 }
 
@@ -25,24 +29,17 @@ void dictionary::readWords()
 {
 	fstream myFile;
 	myFile.open("dictionary.txt", ios::in);
-	if (myFile.is_open())
-		// ensures that the file is opened properly before reading in words
+	if (myFile.is_open())		// ensures that the file is opened properly before reading in words
 	{
 		string line;
 		int i = 0;
-		while (getline(myFile, line))
-			// continuously pushes each line from the txt file as a string to the words
-			// array until the last line of the txt document is reached
+		while (getline(myFile, line))		// pushes each line from the txt file as a string to the words vector until the last line of the txt document is reached
 		{
-			// there's like a CRLF or whatever at the end of each line we have to
-			// remove.
-      line.pop_back();
 			words.push_back(line);
 			++i;
 		}
-	} else 
+	} else // prints error message in case the file is not able to be opened
 	{
-	// prints error message in case the file is not able to be opened
 		cout << "File was not opened" << endl;
 	}
 } // end readWords()
@@ -51,7 +48,8 @@ void operator<<(ostream& ostr, dictionary& dictionary)
 // function to overload the << operator to print out all words in the
 // dictionary object being passed into the operator
 {
-	for (int i = 0; i < dictionary.words.size(); i++) {
+	for (int i = 0; i < dictionary.words.size(); i++) 
+	{
 		cout << dictionary.words[i] << endl;
 	}
 }
@@ -86,17 +84,21 @@ int dictionary::binarySearch(string key)
 	int mid;
 	string midValue;
 
-	while (first <= last) {
+	while (first <= last) 
+	{
 		mid = (first + last) / 2;
 		midValue = words[mid];
 
-		if (key == midValue) {
+		if (key == midValue) 
+		{
 			return mid;
 		}
-		else if (key < midValue) {
+		else if (key < midValue) 
+		{
 			last = mid - 1;
 		}
-		else {
+		else 
+		{
 			first = mid + 1;
 		}
 	}
@@ -105,6 +107,7 @@ int dictionary::binarySearch(string key)
 
 
 void dictionary::quickSort(int left, int right)
+//function to implement the quickSort algorithm
 {
 	if (left < right)
 	{
@@ -117,7 +120,7 @@ void dictionary::quickSort(int left, int right)
 
 int dictionary::partition(int p, int r) 
 // partition function that selects the last element of the vector as a pivot,
-//puts the pivot at the correct position in a sorted array
+//puts the pivot at the correct position in a sorted array, and returns the index of the new pivot.
 {
 	string x = words[r];
 	int i = p - 1;
@@ -135,7 +138,9 @@ int dictionary::partition(int p, int r)
 	return (i + 1);
 }
 
-void dictionary::heapSort() {
+void dictionary::heapSort() 
+//function to implement the heapSort algorithm
+{
 	heap<string> maxHeap = heap<string>(words);
-  words = maxHeap.heapsort();
+	words = maxHeap.heapsort();
 }

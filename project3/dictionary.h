@@ -5,6 +5,8 @@
 #include <string>
 #include <cmath>
 
+//header file for the dictionary class
+
 class dictionary {
 	public:
 		dictionary(int sortType);
