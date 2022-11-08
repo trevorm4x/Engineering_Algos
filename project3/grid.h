@@ -4,10 +4,10 @@
 #include <iostream>
 
 class grid {
-private:
-  void gridFiller();
+	private:
+		void gridFiller(string response);
 
-public:
-  matrix<char> mat;
-  grid();
+	public:
+		matrix<char> mat;
+		grid(string response);
 };
