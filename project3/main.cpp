@@ -51,7 +51,8 @@ void search(int sortType){
     cout << "Please enter the filename of the grid you would like to use" << endl;
     cin >> response;
     grid inputGrid = grid(response);
-    cout << "thanks for entering the filename, grid loaded up\n";
+    cout << dict;
+    cout << "Here's all the words I could find:\n";
     findMatches(dict, inputGrid);
 }
 

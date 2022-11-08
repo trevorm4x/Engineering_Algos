@@ -1,4 +1,5 @@
 #include "dictionary.h"
+#include "heap.h"
 
 dictionary::dictionary(int sortType)
 // constructor for the dictionary class. Inputs the words from the dictionary
@@ -35,6 +36,7 @@ void dictionary::readWords()
 		{
 			// there's like a CRLF or whatever at the end of each line we have to
 			// remove.
+      line.pop_back();
 			words.push_back(line);
 			++i;
 		}
@@ -85,7 +87,7 @@ int dictionary::binarySearch(string key)
 	string midValue;
 
 	while (first <= last) {
-		mid = floor((first + last) / 2);
+		mid = (first + last) / 2;
 		midValue = words[mid];
 
 		if (key == midValue) {
@@ -134,5 +136,6 @@ int dictionary::partition(int p, int r)
 }
 
 void dictionary::heapSort() {
-	cout << "this function represents the heapsort function that will be implemented later" << endl;
+	heap<string> maxHeap = heap<string>(words);
+  words = maxHeap.heapsort();
 }

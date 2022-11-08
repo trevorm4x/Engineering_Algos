@@ -26,7 +26,6 @@ template <typename T> class heap {
 
 template <typename T>
 heap<T>::heap(vector<T> A) {
-
     initializeMaxHeap(A);
 }
 
