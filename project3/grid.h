@@ -3,13 +3,13 @@
 #include <fstream>
 #include <iostream>
 
-//header file for the grid class
+// header file for the grid class
 
 class grid {
-	private:
-		void gridFiller(string response);
+private:
+  void gridFiller(string response);
 
-	public:
-		matrix<char> mat;
-		grid(string response);
+public:
+  matrix<char> mat;
+  grid(string response);
 };
