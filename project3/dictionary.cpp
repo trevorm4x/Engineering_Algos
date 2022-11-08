@@ -84,26 +84,22 @@ int dictionary::binarySearch(string key)
 	int mid;
 	string midValue;
 
-	while (first <= last) 
-	{
-		mid = (first + last) / 2;
+	while (first <= last) {
+		mid = floor((first + last) / 2);
 		midValue = words[mid];
 
-		if (key == midValue) 
-		{
+		if (key == midValue) {
 			return mid;
 		}
-		else if (key < midValue) 
-		{
+		else if (key < midValue) {
 			last = mid - 1;
 		}
-		else 
-		{
+		else {
 			first = mid + 1;
 		}
 	}
 	return -1;
-} // end binarySearch()
+} // end wordFinder()
 
 
 void dictionary::quickSort(int left, int right)
