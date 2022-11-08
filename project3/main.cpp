@@ -9,6 +9,7 @@ void findMatches(dictionary d, grid g)
     int num_col = g.mat.cols();
     std::string keyword = "";
 
+    cout << num_row << "numrow " << num_col << "numcol\n";
     // coordinate directions to iterate and check for words
     int x[] = {-1, -1, -1, 0, 0, 1, 1, 1};
     int y[] = {-1, 0, 1, -1, 1, -1, 0, 1};
@@ -52,13 +53,12 @@ void findMatches(dictionary d, grid g)
 void search(int sortType){
     dictionary dict = dictionary(sortType);
     cout << dict;
-    /*
     string response;
     cout << "Please enter the filename of the grid you would like to use" << endl;
     cin >> response;
     grid inputGrid = grid(response);
+    cout << "thanks for entering the filename, grid loaded up\n";
     findMatches(dict, inputGrid);
-    */ 
 }
 
 int main() {
