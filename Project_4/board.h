@@ -23,7 +23,4 @@ public:
   void addRemoveNumber(int num, int row, int col, bool val);
   int squareNumber(int i, int j);
   bool isSolved();
-  // void addCellValue(int cellRow, int cellColumn, int value);
-  // void clearCell(int cellRow, int cellColumn);
-  // bool boardisSolved();
 };

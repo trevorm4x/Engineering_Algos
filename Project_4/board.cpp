@@ -1,25 +1,34 @@
 #include "board.h"
 
+// declare values for board for ease of access since they do not change
 int BoardSize = 9;
 int SquareSize = 3;
 
+// constructor for the game board
 board::board() {
+
+  // takes user input to identify sudoku text file
   string response;
   cout << "Please enter the name of the sudoku puzzle file" << endl;
   cin >> response;
+
+  // initialize starting values for conflicts matrix
   initializeConflicts();
   readValues(response);
-  // updateConflicts();
   cout << "Initialized conflicts\n";
   printBoard();
   cout << "\n\n\n";
   printConflicts();
 }
 
+// add or remove a number from the board and conflicts tables based on the
+// flag "val". val = 0 if removing a number, val = 1 if adding the number
+// this is because of the conflicts matrix representation of 0 for no conflict
+// and 1 for conflict
 void board::addRemoveNumber(int num, int row, int col, bool val) {
-  // add or remove a number from the board and conflicts tables based on the
-  // flag "val".
 
+  // this makes sure that the actual puzzleBoard itself is updated, not just the
+  // conflict matrix
   if (val)
     puzzleBoard[row][col] = num;
   else
@@ -42,6 +51,7 @@ void board::addRemoveNumber(int num, int row, int col, bool val) {
     for (int j_col = s_col; j_col < s_col + 3; j_col++)
       conflicts[i_row][j_col][2][num - 1] = val;
 }
+
 void board::readValues(string fileName)
 // readValues function that takes in a user inputted string and reads in the
 // values from that string to the puzzle board
@@ -98,17 +108,8 @@ int squareNumber(int i, int j)
   return SquareSize * (i / SquareSize) + j / SquareSize;
 }
 
+// set all conflicts initially to 0 (false)
 void board::initializeConflicts() {
-  // matrix<bool> initVal = matrix<bool>(3, 9, true);
-  // matrix<matrix<bool>> conflicts = matrix<matrix<bool>>(9, 9, initVal);
-  // cout << initVal[0][0] << endl;
-  // cout << conflicts[0][0][0][0] << endl;
-  // for (int i = 0; i < 9; i++) {
-  // for (int j = 0; j < 9; j++) {
-  // conflicts[i][j] = { false, false, false, false, false, false, false, false,
-  // false };
-  // }
-  // }
 
   for (int i = 0; i < 9; i++)
     for (int j = 0; j < 9; j++)
@@ -117,6 +118,7 @@ void board::initializeConflicts() {
           conflicts[i][j][k][l] = 0;
 }
 
+// prints the conflicts to the board
 void board::printConflicts() {
   for (int row = 0; row < 9; row++) {
     for (int col = 0; col < 9; col++) {
@@ -135,6 +137,7 @@ void board::printConflicts() {
   }
 }
 
+// checks to see if the board is solved, return true if solved, false if not solved
 bool board::isSolved() {
   for (int row = 0; row < 9; row++)
     for (int col = 0; col < 9; col++)
