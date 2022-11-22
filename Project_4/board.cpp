@@ -44,17 +44,19 @@ void board::addRemoveNumber(int num, int row, int col, bool val) {
     conflicts[i_row][col][1][num - 1] = val;
   }
 
-  // int square = squareNumber(row, col);
+  // square conflicts, jump to the top-left corner of the current square by
+  // rounding row, col *down* to the nearest 3
   int s_row = (row / 3) * 3;
   int s_col = (col / 3) * 3;
+  // iterate across the square
   for (int i_row = s_row; i_row < s_row + 3; i_row++)
     for (int j_col = s_col; j_col < s_col + 3; j_col++)
       conflicts[i_row][j_col][2][num - 1] = val;
 }
 
-void board::readValues(string fileName)
 // readValues function that takes in a user inputted string and reads in the
 // values from that string to the puzzle board
+void board::readValues(string fileName)
 {
   fstream myFile;
   myFile.open(fileName.c_str(), ios::in);
@@ -83,9 +85,9 @@ void board::readValues(string fileName)
   }
 }
 
-void board::printBoard()
 // printBoard function to print out the sudoku puzzle board and later on the
 // conflicts
+void board::printBoard()
 {
   // sudoku board
   for (int row = 0; row < 9; row++) {
@@ -99,9 +101,9 @@ void board::printBoard()
   }
 }
 
-int squareNumber(int i, int j)
 // Return the square number of cell i,j (counting from left to right,
 // top to bottom.  Note that i and j each go from 1 to BoardSize
+int squareNumber(int i, int j)
 {
   // Note that (int) i/SquareSize and (int) j/SquareSize are the x-y
   // coordinates of the square that i,j is in.
@@ -110,7 +112,6 @@ int squareNumber(int i, int j)
 
 // set all conflicts initially to 0 (false)
 void board::initializeConflicts() {
-
   for (int i = 0; i < 9; i++)
     for (int j = 0; j < 9; j++)
       for (int k = 0; k < 3; k++)
@@ -123,6 +124,7 @@ void board::printConflicts() {
   for (int row = 0; row < 9; row++) {
     for (int col = 0; col < 9; col++) {
       cout << row << ", " << col << ": " << endl;
+      // iterate across conflict types: {"row", "col", "sqr"}
       for (int conflictType = 0; conflictType < 3; conflictType++) {
         cout << (conflictType == 0   ? "row"
                  : conflictType == 1 ? "col"
