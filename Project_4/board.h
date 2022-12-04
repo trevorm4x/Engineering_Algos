@@ -24,14 +24,12 @@ public:
   board();
   void readValues(string response);
   void readFromString(string puzzle);
+  void readBigStringValues(string filename);
   void printBoard();
   void initializeConflicts();
-  void updateConflicts();
   void printConflicts();
-  bool isBlank(int i, int j);
   int getCell(int i, int j);
   void addRemoveNumber(int num, int row, int col, bool val);
-  int squareNumber(int i, int j);
   bool isSolved();
   int solve();
   trynum_t bestConflict();
