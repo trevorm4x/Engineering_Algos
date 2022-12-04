@@ -5,15 +5,25 @@
 #include <string>
 #include <vector>
 
+// container for a location and list of allowed
+// numbers to try
+typedef struct trynum{
+  int row;
+  int col;
+  int num[9];
+} trynum_t;
+
 class board {
 private:
   matrix<int> puzzleBoard;
   // matrix<matrix<bool>> conflicts;
   bool conflicts[9][9][3][9];
+  int recurCalls;
 
 public:
   board();
   void readValues(string response);
+  void readFromString(string puzzle);
   void printBoard();
   void initializeConflicts();
   void updateConflicts();
@@ -23,4 +33,8 @@ public:
   void addRemoveNumber(int num, int row, int col, bool val);
   int squareNumber(int i, int j);
   bool isSolved();
+  int solve();
+  trynum_t bestConflict();
+  // void addCellValue(int cellRow, int cellColumn, int value);
+  // void clearCell(int cellRow, int cellColumn);
 };

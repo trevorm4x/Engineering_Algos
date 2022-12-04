@@ -1,34 +1,25 @@
 #include "board.h"
 
-// declare values for board for ease of access since they do not change
 int BoardSize = 9;
 int SquareSize = 3;
 
-// constructor for the game board
 board::board() {
-
-  // takes user input to identify sudoku text file
   string response;
   cout << "Please enter the name of the sudoku puzzle file" << endl;
   cin >> response;
-
-  // initialize starting values for conflicts matrix
   initializeConflicts();
   readValues(response);
+  // updateConflicts();
   cout << "Initialized conflicts\n";
   printBoard();
   cout << "\n\n\n";
   printConflicts();
 }
 
-// add or remove a number from the board and conflicts tables based on the
-// flag "val". val = 0 if removing a number, val = 1 if adding the number
-// this is because of the conflicts matrix representation of 0 for no conflict
-// and 1 for conflict
 void board::addRemoveNumber(int num, int row, int col, bool val) {
+  // add or remove a number from the board and conflicts tables based on the
+  // flag "val": if "true" add the number, if "false" remove it.
 
-  // this makes sure that the actual puzzleBoard itself is updated, not just the
-  // conflict matrix
   if (val)
     puzzleBoard[row][col] = num;
   else
@@ -44,19 +35,35 @@ void board::addRemoveNumber(int num, int row, int col, bool val) {
     conflicts[i_row][col][1][num - 1] = val;
   }
 
-  // square conflicts, jump to the top-left corner of the current square by
-  // rounding row, col *down* to the nearest 3
+  // int square = squareNumber(row, col);
   int s_row = (row / 3) * 3;
   int s_col = (col / 3) * 3;
-  // iterate across the square
   for (int i_row = s_row; i_row < s_row + 3; i_row++)
     for (int j_col = s_col; j_col < s_col + 3; j_col++)
       conflicts[i_row][j_col][2][num - 1] = val;
 }
 
+void board::readFromString(string puzzle) {
+  int rows = 9;
+  int cols = 9;
+  puzzleBoard.resize(rows, cols);
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      char temp;
+      temp = puzzle[i*9+j];
+      if (temp != '.') {
+        addRemoveNumber(temp - '0', i, j, 1);
+        // puzzleBoard[i][j] = temp - '0';
+      } else {
+        puzzleBoard[i][j] = -1;
+      }
+    }
+  }
+}
+
+void board::readValues(string fileName)
 // readValues function that takes in a user inputted string and reads in the
 // values from that string to the puzzle board
-void board::readValues(string fileName)
 {
   fstream myFile;
   myFile.open(fileName.c_str(), ios::in);
@@ -85,9 +92,9 @@ void board::readValues(string fileName)
   }
 }
 
+void board::printBoard()
 // printBoard function to print out the sudoku puzzle board and later on the
 // conflicts
-void board::printBoard()
 {
   // sudoku board
   for (int row = 0; row < 9; row++) {
@@ -101,17 +108,27 @@ void board::printBoard()
   }
 }
 
+int squareNumber(int i, int j)
 // Return the square number of cell i,j (counting from left to right,
 // top to bottom.  Note that i and j each go from 1 to BoardSize
-int squareNumber(int i, int j)
 {
   // Note that (int) i/SquareSize and (int) j/SquareSize are the x-y
   // coordinates of the square that i,j is in.
   return SquareSize * (i / SquareSize) + j / SquareSize;
 }
 
-// set all conflicts initially to 0 (false)
 void board::initializeConflicts() {
+  // matrix<bool> initVal = matrix<bool>(3, 9, true);
+  // matrix<matrix<bool>> conflicts = matrix<matrix<bool>>(9, 9, initVal);
+  // cout << initVal[0][0] << endl;
+  // cout << conflicts[0][0][0][0] << endl;
+  // for (int i = 0; i < 9; i++) {
+  // for (int j = 0; j < 9; j++) {
+  // conflicts[i][j] = { false, false, false, false, false, false, false, false,
+  // false };
+  // }
+  // }
+
   for (int i = 0; i < 9; i++)
     for (int j = 0; j < 9; j++)
       for (int k = 0; k < 3; k++)
@@ -119,12 +136,10 @@ void board::initializeConflicts() {
           conflicts[i][j][k][l] = 0;
 }
 
-// prints the conflicts to the board
 void board::printConflicts() {
   for (int row = 0; row < 9; row++) {
     for (int col = 0; col < 9; col++) {
       cout << row << ", " << col << ": " << endl;
-      // iterate across conflict types: {"row", "col", "sqr"}
       for (int conflictType = 0; conflictType < 3; conflictType++) {
         cout << (conflictType == 0   ? "row"
                  : conflictType == 1 ? "col"
@@ -139,11 +154,66 @@ void board::printConflicts() {
   }
 }
 
-// checks to see if the board is solved, return true if solved, false if not solved
 bool board::isSolved() {
   for (int row = 0; row < 9; row++)
     for (int col = 0; col < 9; col++)
       if (puzzleBoard[row][col] < 0)
         return false;
   return true;
+}
+
+int board::solve() {
+  if (isSolved())
+    return recurCalls;
+
+  trynum_t bestnum = bestConflict();
+  // failed to find an empty cell with a potential number to try
+  bool didfail = true;
+  // check all numbers, if none allowed then we found a cell with no
+  // number and no allowed numbers, need to backtrack
+  for (int num = 0; num < 9; num++)
+    if (bestnum.num[num] == 1) {
+      // add number to board and update conflicts
+      addRemoveNumber(num + 1, bestnum.row, bestnum.col, 1);
+      ++recurCalls;
+      // solve new board state
+      int success = solve();
+      // if we failed, backtrack
+      if (success == -1)
+        addRemoveNumber(num + 1, bestnum.row, bestnum.col, 0);
+      // if we succeeded, pass success upwards
+      else
+        return success;
+    }
+  // if we tried all allowed numbers and never succeeded, we failed
+  return -1;
+}
+
+int board::getCell(int row, int col) { return puzzleBoard[row][col]; }
+
+trynum_t board::bestConflict() {
+  // naive approach just gets the first number not solved
+  // with possible nums
+  trynum_t best;
+  for (int i = 0; i < 9; ++i) {
+    for (int j = 0; j < 9; ++j) {
+      // find the first cell with no entry
+      if (getCell(i, j) == -1) {
+        for (int num = 0; num < 9; ++num) {
+          // check that number has no conflicts on row, column, and square
+          best.row = i;
+          best.col = j;
+          if (conflicts[i][j][0][num] == 0 &
+              conflicts[i][j][1][num] == 0 & 
+              conflicts[i][j][2][num] == 0) {
+            best.num[num] = 1;
+          } else
+            best.num[num] = 0;
+        }
+        return best;
+      }
+    }
+  }
+
+  return best;
 }
