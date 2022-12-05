@@ -7,7 +7,7 @@
 
 // container for a location and list of allowed
 // numbers to try
-typedef struct trynum{
+typedef struct trynum {
   int row;
   int col;
   int num[9];
@@ -33,6 +33,8 @@ public:
   bool isSolved();
   int solve();
   trynum_t bestConflict();
+  trynum_t oneLegalSpotNumber();
+  vector<int> numRank();
   // void addCellValue(int cellRow, int cellColumn, int value);
   // void clearCell(int cellRow, int cellColumn);
 };

@@ -4,13 +4,13 @@ using namespace std;
 
 // main function that initializes a game board and executes methods for testing
 int main() {
-    
-  //Sudoku 4b, most up-to-date testing
+
+  // Sudoku 4b, most up-to-date testing
   board myBoard;
 
   //--------------------------------------
 
-  //previous testing
+  // previous testing
   /*board board1;
   int numcalls = board1.solve();
   board1.printBoard();
