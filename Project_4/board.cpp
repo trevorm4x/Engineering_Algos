@@ -1,9 +1,11 @@
 #include "board.h"
+#include <vector>
 
 int BoardSize = 9;
 int SquareSize = 3;
-int totalCalls = 0;
+long long int totalCalls = 0;
 int numPuzzles = 0;
+int puzzleNum = 1;
 
 board::board() 
 //constructor that takes in a user input for which file to read in
@@ -18,14 +20,13 @@ board::board()
     readBigStringValues(response);
     cout << "total number of puzzles: "<< numPuzzles << endl;
     cout << "total number of recursive calls: " << totalCalls << endl;
-    cout << "Average number of recursive calls: " << totalCalls / numPuzzles;
+    cout << "Average number of recursive calls: " << totalCalls/numPuzzles << endl;
 }
 
 void board::addRemoveNumber(int num, int row, int col, bool val) 
 // add or remove a number from the board and conflicts tables based on the
 // flag "val": if "true" add the number, if "false" remove it.
 {
-
     if (val)
     puzzleBoard[row][col] = num;
     else
@@ -90,12 +91,16 @@ void board::readBigStringValues(string fileName)
         while (getline(myFile, puzzle))         //reads in each line of the text file and stores it in the puzzle string
         {
             readFromString(puzzle);
+            cout << "Puzzle #" << puzzleNum << endl;
             cout << "Unsolved Board" << endl;
             printBoard();
-            totalCalls += solve();
+            int temp = solve();
+            totalCalls += temp;
             cout << "Solved Board" << endl;
             printBoard();
+            cout << "Recursive calls needed: " << temp << endl;
             numPuzzles++;
+            puzzleNum++;
         }
     }
     else // prints error message in case the file is not able to be opened
