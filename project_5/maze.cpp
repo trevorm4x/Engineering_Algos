@@ -177,6 +177,7 @@ void maze::mapMazeToGraph(maze &m, graph &g)
 }
 
 void maze::checkNeighborsCreateEdges(int i, int j, graph &g) {
+   // check for nodes adjacent to the given maze coordinate
    int xdirs[4] = {-1, 1, 0, 0};
    int ydirs[4] = {0, 0, -1, 1};
 
@@ -195,6 +196,7 @@ void maze::checkNeighborsCreateEdges(int i, int j, graph &g) {
 }
 
 coord maze::findNode(int node_id) {
+   // search the maze for a node with node_id and return its coord location
    struct coord c;
    for (int p = 0; p < rows; p++) {
       for (int q = 0; q < cols; q++) {
@@ -211,24 +213,46 @@ coord maze::findNode(int node_id) {
 }
 
 bool maze::solveMazeIterative(graph &g, node* v) {
+   // solve maze with depth-first stack-based search
    stack<node*> thestack;
+   stack<string> thesteps;
 
    int i_goal = rows - 1, j_goal = cols - 1;
 
    thestack.push(v);
+   thesteps.push("");
    v->visit();
 
    while (!thestack.empty()) {
       node* v = thestack.top();
+      thestack.pop();
+      string step = thesteps.top();
+      thesteps.pop();
+
       struct coord c = findNode(v->getId());
+      if (!v->isVisited()) {
+         cout << step << endl;
+         // printf("c=(%d, %d)\n", c.x, c.y);
+         v->visit();
+      }
 
       int xdirs[4] = {-1, 1, 0, 0};
       int ydirs[4] = {0, 0, -1, 1};
       string sdirs[4] = {"up", "down", "left", "right"};
       // print(c.x, c.y, i_goal, j_goal);
 
-      if (c.x == i_goal && c.y == j_goal)
-         break;
+      if (c.x == i_goal && c.y == j_goal) {
+         // reached goal
+         while (!thestack.empty()) {
+            // struct coord c = findNode(thestack.top()->getId());
+            // printf("c=(%d, %d)\n", c.x, c.y);
+            // string step = thesteps.top();
+            // cout << step << endl;
+            thestack.pop();
+            thesteps.pop();
+         }
+         cout << "Maze finished!\n";
+      }
 
       bool hasNeighbor = false;
       string laststep = "";
@@ -241,31 +265,22 @@ bool maze::solveMazeIterative(graph &g, node* v) {
                // v has unvisited neighbor
                hasNeighbor = true;
                // pushStep(sdirs[d]);
-               next->visit();
+               // next->visit();
                thestack.push(next);
+               thesteps.push(sdirs[d]);
                // pushStep(sdirs[d]);
-               cout << sdirs[d] << "\n";
                laststep = sdirs[d];
             }
          }
       }
-      if (!hasNeighbor) {
-         thestack.pop();
-         // popStep();
-         cout << laststep;
-      }
    }
 
-   while (!thestack.empty()) {
-      struct coord c = findNode(thestack.top()->getId());
-      printf("c=(%d, %d)\n", c.x, c.y);
-      thestack.pop();
-   }
 
    return true;
 }
 
 bool maze::solveMazeRecursive(graph &g, node* v) {
+   // solve maze using recursive depth-first search
 
    struct coord c = findNode(v->getId());
 
@@ -303,7 +318,7 @@ int main()
    ifstream fin;
 
    // Read the maze from the file.
-   string fileName = "Maze 1";
+   string fileName = "Maze 3";
 
    fin.open(fileName.c_str());
    if (!fin)
@@ -327,10 +342,11 @@ int main()
          m.printPath();
 
          cout << endl << "trying iterative!\n\n";
+         cout << "The print outs for this puzzle are different; when you reach a dead end,\
+immediately return to the last branch and continue from there.\n";
          m.mapMazeToGraph(m, h);
          node* start2 = h.getNode(m.getMap(0, 0));
          m.solveMazeIterative(h, start2);
-         m.printPath();
       }
 
    } 
