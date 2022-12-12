@@ -60,7 +60,7 @@ node::node(const node &n)
    setNode(n.getId(), n.getWeight(), n.isMarked(), n.isVisited());
 }
 
-node &node::operator=(const node &n)
+node& node::operator=(const node &n)
 // Overloaded assignment operator.
 {
    setNode(n.getId(), n.getWeight(), n.isMarked(), n.isVisited());
@@ -104,7 +104,7 @@ void node::setNode(int id, NodeWeight w = 0, bool m = false, bool v = false)
       mark();
    else
       unMark();
-   
+
    if (v)
       visit();
    else
@@ -360,8 +360,8 @@ class graph
    graph(int n);
    graph(ifstream &fin);
    graph(const graph &);
-   graph &operator=(const graph &);   
-
+   graph& operator=(const graph &);   
+ 
    void addEdge(int i, int j, NodeWeight w = 0);
    void removeEdge(int i, int j);
 
@@ -381,8 +381,8 @@ class graph
    int numNodes() const;
    int numEdges() const;
    
-   node &getNode(int);
-   const node &getNode(int) const;
+   node* getNode(int);
+   const node* getNode(int) const;
    edge &getEdge(int i,int j);
    const edge &getEdge(int i, int j) const;
 
@@ -679,24 +679,24 @@ ostream &operator<<(ostream &ostr, const graph &g)
    return ostr;
 }
 
-node &graph::getNode(int i) 
+node* graph::getNode(int i) 
 // Return a reference to the ith node.  Throws an exception if i is
 // too small or too large.
 {
    if (i < 0 || i >= numNodes())
       throw rangeError("Bad value in graph::getNode");
 
-   return nodes[i];
+   return &nodes[i];
 }
 
-const node &graph::getNode(int i) const
+const node* graph::getNode(int i) const
 // Return a reference to the ith node.  Throws an exception if i is
 // too small or too large.
 {
    if (i < 0 || i >= numNodes())
       throw rangeError("Bad value in graph::getNode");
 
-   return nodes[i];
+   return &nodes[i];
 }
 
 edge &graph::getEdge(int i, int j) 
