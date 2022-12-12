@@ -21,8 +21,7 @@ board::board()
   readBigStringValues(response);
   cout << "total number of puzzles: " << numPuzzles << endl;
   cout << "total number of recursive calls: " << totalCalls << endl;
-  cout << "Average number of recursive calls: " << totalCalls / numPuzzles
-       << endl;
+  cout << "Average number of recursive calls: " << totalCalls / numPuzzles << endl;
 }
 
 void board::addRemoveNumber(int num, int row, int col, bool val)
@@ -86,14 +85,17 @@ void board::readBigStringValues(string fileName)
     while (getline(myFile, puzzle)) // reads in each line of the text file and
                                     // stores it in the puzzle string
     {
+        cout << "Line 88" << endl;
       readFromString(puzzle);
       cout << "Puzzle #" << puzzleNum << endl;
       cout << "Unsolved Board" << endl;
+      cout << "Line 92" << endl;
       printBoard();
       recurCalls = 0;
       int temp = solve();
       totalCalls += temp;
       cout << "Solved Board" << endl;
+      cout << "Line 98" << endl;
       printBoard();
       cout << "Recursive calls needed: " << temp << endl;
       numPuzzles++;
@@ -306,7 +308,7 @@ trynum_t board::oneLegalSpotNumber() {
   // work yet - could be improved by working in conjuction with the other
   // conflicFinder better, and by breaking early if there is only one legal spot
   // for a number but fewer than 8 of that number on the board currently
-  trynum_t best;
+    trynum_t best{};
   // try finding a number with one possible location
   for (int num = 0; num < 9; num++) {
     int num_legal_spots = 0;
